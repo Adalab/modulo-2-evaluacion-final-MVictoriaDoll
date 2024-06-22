@@ -3,6 +3,8 @@
 
 const charactersUl = document.querySelector('.js__character');
 
+const charactersElements = document.querySelector('.js__listcharacters');
+
 // variables
 
 let characters = [];
@@ -16,9 +18,29 @@ const getApiData = () => {
     .then(response => response.json())
     .then(data =>{
         characters = data.data;
+        paintcharacters();
     });
 };
 
+// Paint Characters
+
+const getCharactersHtmlCode = (character) => {
+    let htmlCode = '';
+    htmlCode += `<article class="card">`;
+    htmlCode += `<img src="${character.imageUrl}" class="card-img" alt="${character.name}"">`;
+    htmlCode += `<h3 class= "card__name">${character.name} </h3>`;
+    htmlCode += `</article>`;
+    return htmlCode;
+};
+
+const paintcharacters = () => {
+  let charactersCode = '';
+  for (let character of characters){
+    charactersCode += getCharactersHtmlCode(character);
+  }
+  charactersElements.innerHTML = charactersCode;
+
+};
 
 // Start web
 
