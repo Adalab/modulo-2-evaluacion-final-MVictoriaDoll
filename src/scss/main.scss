@@ -1,0 +1,27 @@
+/*
+  Aquí van tus estilos o los @import './tus/ficheros'
+*/
+
+body {
+  background-color: white;
+}
+
+
+.header {
+  background-image: url('/images/pexels-jmendezrf-13616697.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 300px; /* Añadir una altura fija para asegurarse de que el header es visible */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
