@@ -18,10 +18,64 @@ body {
   justify-content: center;
   padding: 20px;
   box-sizing: border-box;
+  margin-bottom: 100px;
 }
 
 .search-container {
   display: flex;
   align-items: center;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.characters {
+  margin-bottom: 20px;
+  text-align: center;
+  color: black;
+}
+
+.list {
+  flex: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+}
+
+/*.listCharacters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}*/
+
+.favorite{
+  flex:1;
+  padding-left: 20px;
+  border-left: 1px solid #ccc;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  text-align: center;
+  width: 200px;
+}
+
+.card-img {
+  width: 90%;
+  height: 150px;
+}
+
+.favorites {
+  margin-bottom: 0px;
+  text-align: center;
 }
 
