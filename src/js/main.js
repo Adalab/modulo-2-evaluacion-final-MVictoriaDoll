@@ -1,14 +1,18 @@
 'use strict';
 // Query Selector
 
-const charactersUl = document.querySelector('.js__character');
+/*const charactersUl = document.querySelector('.js__character');*/
 
 const charactersElements = document.querySelector('.js__listcharacters');
+console.log('charactersElements');
+const favoritesUl = document.querySelector('.js__favoritecharacters')
 
 // variables
 
 let characters = [];
-
+/*let imageUrl = ''; */
+/*let charactersCode = '';
+  let htmlCode = '';*/
 
 // Get data 
 
@@ -18,6 +22,7 @@ const getApiData = () => {
     .then(response => response.json())
     .then(data =>{
         characters = data.data;
+        console.log('characters array:', characters)
         paintcharacters();
     });
 };
@@ -26,20 +31,18 @@ const getApiData = () => {
 
 const getCharactersHtmlCode = (character) => {
     
-   let imageUrl = '';
-  
-   if (character.imageUrl) {
-      imageUrl = character.imageUrl;  
-    } else {
-      character.imageUrl = `https://via.placeholder.com/210x295/ffffff/555555/?text=Disney`;
-    }
-    
-    let htmlCode = '';
+   let imageUrl = character.imageUrl; 
 
-    htmlCode += `<article class="card">`;
-    htmlCode += `<img src="${character.imageUrl}" class="card-img" alt="${character.name}"">`;
+if (!imageUrl) {
+    imageUrl = `https://via.placeholder.com/210x295/ffffff/555555/?text=Disney`;  
+  } 
+    
+   let htmlCode = '';
+
+    htmlCode += `<li class="js__charactercard card" data-id="${character._id}">`;
+    htmlCode += `<img src="${imageUrl}" class="card-img" alt="${character.name}"">`;
     htmlCode += `<h3 class= "card__name">${character.name} </h3>`;
-    htmlCode += `</article>`;
+    htmlCode += `</li>`;
    
     return htmlCode;
 };
@@ -52,6 +55,10 @@ const paintcharacters = () => {
   }
   charactersElements.innerHTML = charactersCode;
 
+  const charactersAllCard = document.querySelectorAll('.js__charactercard');
+  for ( const eachCardArticle of charactersAllCard ){
+    eachCardArticle.addEventListener('click', handleClickCard);
+  }
 };
 
 // Start web
@@ -59,9 +66,29 @@ const paintcharacters = () => {
 getApiData();
 
 
-// Funciones
+// funciones
+
 
 // Funciones de Eventos (Handler)
+ function handleClickCard (ev) {
+
+  ev.currentTarget.classList.toggle('favorite');
+  const clickedCardId = ev.currentTarget.dataset.id;
+
+  
+  /*const clickedCardObj = characters.find( eachCardObj => eachCardObj._id === clickedCardId);*/
+
+  const clickedCardObj = characters.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
+
+  console.log('Clicked Card ID:', clickedCardId);
+
+
+  let favoriteCardHtml = getCharactersHtmlCode(clickedCardObj);
+  favoritesUl.innerHTML += favoriteCardHtml;
+  
+ }
+
+
 
 // Eventos
 
