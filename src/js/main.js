@@ -16,14 +16,18 @@ let characters = [];
 let favorites = [];
 
 
-function handleClickCard (ev) {
+
+const handleClickCard = (ev) => {
 
   /*ev.currentTarget.classList.toggle('favorite');*/
   const clickedCardId = ev.currentTarget.dataset.id;
   console.log(clickedCardId);
+
   
   const clickedCardObj = characters.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
   const clickedFavoriteObj =  favorites.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString())
+  console.log('clickenadi', clickedFavoriteObj);
+  
 
   if (clickedFavoriteObj === undefined) {
     favorites.push(clickedCardObj);
@@ -39,6 +43,7 @@ function handleClickCard (ev) {
     
     favorites.splice(clickedFavoriteObj,1);
     ev.currentTarget.classList.remove('favorite');
+    
 
     localStorage.setItem('favs', JSON.stringify(favorites) );
     paintFavorites ();
@@ -48,8 +53,33 @@ function handleClickCard (ev) {
  }
 
  // sacar de favoritos con evento click en la cruz
+ const handleClickRemove = (ev) => {
+  ev.stopPropagation();
 
- const handleClickRemove = ev => {
+  const clickedCardId = ev.currentTarget.dataset.id;
+  console.log('Clicked remove ID:', clickedCardId);
+
+  // Encuentra el índice del objeto en la lista de favoritos
+  const clickedFavoriteIndex = favorites.findIndex(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
+
+  if (clickedFavoriteIndex !== -1) {
+    // Elimina el objeto de favoritos
+    const removedObj = favorites.splice(clickedFavoriteIndex, 1);
+    console.log('Removed from favorites:', removedObj);
+
+    // Encuentra el elemento correspondiente en la lista general y remueve la clase 'favorite'
+    const cardElement = document.querySelector(`.js__charactercard[data-id="${clickedCardId}"]`);
+    if (cardElement) {
+      cardElement.classList.remove('favorite');
+    }
+
+    // Actualiza el localStorage y la UI
+    localStorage.setItem('favs', JSON.stringify(favorites));
+    paintFavorites();
+  }
+}
+
+ /*const handleClickRemove = ev => {
   ev.stopPropagation();
   const clickedCardId = ev.currentTarget.dataset.id;
   let clickedCardObj = characters.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
@@ -65,7 +95,7 @@ function handleClickCard (ev) {
   console.log(clickedCardId);
   
   console.log ('me han clickeado', ev.currentTarget.dataset.id);
-} 
+} */
 
 function handleClickSearch (ev) {
   ev. preventDefault();
@@ -75,6 +105,11 @@ function handleClickSearch (ev) {
    .then(response => response.json())
    .then(dataFromOtherFetch => {
     characters = dataFromOtherFetch.data;
+    paintcharacters();
+    
+    if (characters) {
+      cardElement.classList.add('favorite');
+    }
     paintcharacters();
 
   })
