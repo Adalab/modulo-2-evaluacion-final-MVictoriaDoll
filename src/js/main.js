@@ -5,7 +5,10 @@
 
 const charactersElements = document.querySelector('.js__listcharacters');
 console.log('charactersElements');
-const favoritesUl = document.querySelector('.js__favoritecharacters')
+const favoritesUl = document.querySelector('.js__favoritecharacters');
+const searchButton = document.querySelector('.js_searchButton');
+const characterInput = document.querySelector('.js__characters-input');
+
 
 // variables
 
@@ -72,7 +75,6 @@ function paintFavorites () {
 
   favoritesUl.innerHTML = htmlCode;
 
-
 }
 // Start web
 
@@ -94,26 +96,37 @@ getApiData();
 
   if (clickedFavoriteObj === undefined) {
     favorites.push(clickedCardObj);
+
+  paintFavorites ();
+
   }
-
-
- 
-
-paintFavorites ();
-
- /*favorites.push(clickedCardObj); */
-
+  else {
+    // Sacar de favoritos
+    
+    favorites.splice(clickedFavoriteObj,1);
+    paintFavorites ();
+  } 
   
-  /*const clickedCardObj = characters.find( eachCardObj => eachCardObj._id === clickedCardId);
-
-  let favoriteCardHtml = getCharactersHtmlCode(clickedCardObj);
-  favoritesUl.innerHTML += favoriteCardHtml;*/
   
+
  }
 
+ function handleClickSearch (ev) {
+  ev. preventDefault();
+  
+  const searchedCharacter = characterInput.value;
+  fetch(`https://api.disneyapi.dev/character?pageSize=50&name=${encodeURIComponent(searchedCharacter)}`)
+   .then(response => response.json())
+   .then(dataFromOtherFetch => {
+    characters = dataFromOtherFetch.data;
+    paintcharacters();
 
+  })
+
+ }
 
 // Eventos
+searchButton.addEventListener('click', handleClickSearch);
 
 // Codigo cuando carga la pagina
 
