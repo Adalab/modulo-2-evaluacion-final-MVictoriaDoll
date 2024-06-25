@@ -10,6 +10,8 @@ const favoritesUl = document.querySelector('.js__favoritecharacters')
 // variables
 
 let characters = [];
+let favorites = [];
+
 /*let imageUrl = ''; */
 /*let charactersCode = '';
   let htmlCode = '';*/
@@ -61,6 +63,17 @@ const paintcharacters = () => {
   }
 };
 
+function paintFavorites () {
+  let htmlCode = '';
+
+  for (const character of favorites) {
+    htmlCode += getCharactersHtmlCode(character);
+  }
+
+  favoritesUl.innerHTML = htmlCode;
+
+
+}
 // Start web
 
 getApiData();
@@ -74,17 +87,27 @@ getApiData();
 
   ev.currentTarget.classList.toggle('favorite');
   const clickedCardId = ev.currentTarget.dataset.id;
+  console.log(clickedCardId);
+  
+  const clickedCardObj = characters.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
+  const clickedFavoriteObj =  favorites.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString())
+
+  if (clickedFavoriteObj === undefined) {
+    favorites.push(clickedCardObj);
+  }
+
+
+ 
+
+paintFavorites ();
+
+ /*favorites.push(clickedCardObj); */
 
   
-  /*const clickedCardObj = characters.find( eachCardObj => eachCardObj._id === clickedCardId);*/
-
-  const clickedCardObj = characters.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
-
-  console.log('Clicked Card ID:', clickedCardId);
-
+  /*const clickedCardObj = characters.find( eachCardObj => eachCardObj._id === clickedCardId);
 
   let favoriteCardHtml = getCharactersHtmlCode(clickedCardObj);
-  favoritesUl.innerHTML += favoriteCardHtml;
+  favoritesUl.innerHTML += favoriteCardHtml;*/
   
  }
 
