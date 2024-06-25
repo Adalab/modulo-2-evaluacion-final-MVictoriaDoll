@@ -18,7 +18,7 @@ let favorites = [];
 
 function handleClickCard (ev) {
 
-  ev.currentTarget.classList.toggle('favorite');
+  /*ev.currentTarget.classList.toggle('favorite');*/
   const clickedCardId = ev.currentTarget.dataset.id;
   console.log(clickedCardId);
   
@@ -27,6 +27,7 @@ function handleClickCard (ev) {
 
   if (clickedFavoriteObj === undefined) {
     favorites.push(clickedCardObj);
+    ev.currentTarget.classList.add('favorite');
 
     localStorage.setItem('favs', JSON.stringify(favorites) );
 
@@ -37,6 +38,7 @@ function handleClickCard (ev) {
     // Sacar de favoritos
     
     favorites.splice(clickedFavoriteObj,1);
+    ev.currentTarget.classList.remove('favorite');
 
     localStorage.setItem('favs', JSON.stringify(favorites) );
     paintFavorites ();
@@ -44,15 +46,6 @@ function handleClickCard (ev) {
   
   
  }
- 
- /*const handleClickRemove = ev => {
-  
-  const removeButtons = document.querySelectorAll('.js__removeFavorite');
-  for ( const eachRemoveButton of removeButtons ){
-    eachRemoveButton.addEventListener('click', handleClickCard);
-  }
-     
- };*/
 
  // sacar de favoritos con evento click en la cruz
 
@@ -62,6 +55,7 @@ function handleClickCard (ev) {
   let clickedCardObj = characters.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
    if (clickedCardObj !== -1) {
     favorites.splice(clickedCardObj,1);
+    ev.currentTarget.classList.remove('favorite');
      localStorage.setItem('favs', JSON.stringify(favorites));
 
     paintFavorites();
