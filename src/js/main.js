@@ -20,7 +20,7 @@ const handleClickCard = (ev) => {
   console.log(clickedCardId);
   const clickedCardObj = characters.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
   const clickedFavoriteObj =  favorites.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString())
-  console.log('clickenadi', clickedFavoriteObj);
+  console.log('clickeando', clickedFavoriteObj);
   
 
   if (clickedFavoriteObj === undefined) {
@@ -139,12 +139,18 @@ const loadfavorites = () => {
 
 const getCharactersHtmlCode = (character, isFavorite = false) => {
     
-   let imageUrl = character.imageUrl; 
+   let imageUrl = character.imageUrl;
+   
+ 
 
 if (!imageUrl) {
     imageUrl = `https://via.placeholder.com/210x295/ffffff/555555/?text=Disney`;  
   } 
-    
+   
+  const isFavs = favorites.find(eachCardObj => eachCardObj._id.toString() === character._id.toString());
+  const favoriteClass = isFavorite ? 'favorite' : '';
+  
+
    let htmlCode = '';
 
    htmlCode += `<li class="js__charactercard card" data-id="${character._id}">`;
@@ -155,8 +161,11 @@ if (!imageUrl) {
   } 
     htmlCode += `</li>`;
 
-   
+  
+
     return htmlCode;
+
+
 };
 
 const paintcharacters = () => {
