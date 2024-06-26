@@ -6,77 +6,119 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
 }
 
 body {
-  background-color: white;
-}
-
-
-.header {
-  background-image: url('/images/pexels-jmendezrf-13616697.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 300px; /* Añadir una altura fija para asegurarse de que el header es visible */
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 20px;
-  box-sizing: border-box;
-  margin-bottom: 100px;
-}
-
-.search-container {
-  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
+header {
+  width: 90%;
+  height: 400px;
+  background-image: url('/images/Castillo_Disney.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-block: 50px;
+}
+
+
+.search-container {
+  display: flex;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  margin-top: 250px;
+  flex-direction: row;
+  
+}
+
+.form_label {
+  margin-right: 10px;
+  font-weight: bold;
+  
+}
+.form_input-text {
+  padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 400px; /* Ajustar el ancho del input */
+    outline: none;
+}
+
+.form_btn{
+  flex-direction: row;
+  padding: 5px 10px;
+  font-size: 12px;
+  height: 30px;
+  width: 60px;
+  border: none;
+  background-color: lightblue;
+  color:white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;  
+  outline: none;
+
+
+}
 .main {
   display: flex;
   justify-content: space-between;
   padding: 20px;
 }
 
-/*.characters-section,
-.favorites-section {
-    flex: 1;
-    margin: 0 10px;
-}*/
-
-
 .characters-section {
 
-  width: 70%;
+  width: 90%;
   margin-right: 20px;
-  /*display: flex;
-  flex: 2;
-  margin-right: 20px;*/
+
 }
 
 .favorite-section {
   width: 25%;
-  /*display: flex;
-  flex: 1;*/
+  
 }
 
 .section1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 95%;
 }
 
 .section2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 85%;
 } 
 
 .title_1,
 .title_2 {
     text-align: center;
+    justify-content: center;
+    font-size: 16px;
     margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+    color: blue;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 1px; /* Espaciado entre letras */
 }
 
 .list,
@@ -104,32 +146,71 @@ body {
     gap: 20px;
 }
 
+.js__listcharacters, .js__favoritecharacters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
 .card {
     background-color: white;
     border-radius: 8px;
     text-align: center;
-    width: 50px;
-    transition: background-color 0.3s, color 0.3s;
+    width: 200px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);        
 }
 
 
 .card-img {
     width: 100%;
     height: 150px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.card__name {
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: gray;
+}
+
+.remove_btn {
+  background-color: gray;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin: 10px;
+  margin-left: 150px;
 }
 
 .favorite {
-    background-color: blueviolet;
+    background-color: lightblue;
     color: white;
 }
 
-
-.listFavorite .card-img {
-  width: 250%;
-  height: 100px; /* Ajustar el tamaño de las imágenes en favoritos */
+.removeAll_btn {
+  background-color: grey;
+  color: #fff;
+  border: none;
+  padding: 8px 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Espacio entre el icono y el texto */
+  transition: background-color 0.3s, transform 0.3s;
 }
 
-.listFavorite .card__name {
+
+
+/*.listFavorite .card__name {
   text-align: center;
   justify-content: center;
 }
@@ -138,4 +219,4 @@ body {
   display: flex;
   text-align: center;
   justify-content: center;
-}
+}*/

@@ -147,13 +147,14 @@ if (!imageUrl) {
     
    let htmlCode = '';
 
-    htmlCode += `<li class="js__charactercard card" data-id="${character._id}">`;
-    htmlCode += `<img src="${imageUrl}" class="card-img" alt="${character.name}"">`;
-    htmlCode += `<h3 class= "card__name">${character.name} </h3>`;
+   htmlCode += `<li class="js__charactercard card" data-id="${character._id}">`;
+   htmlCode += `<img src="${imageUrl}" class="card-img" alt="${character.name}"">`;
+   htmlCode += `<h3 class= "card__name">${character.name} </h3>`;
     if (isFavorite) {
       htmlCode += `<button class="remove_btn js__removeFavorite" data-id="${character._id}">X</button>`;
   } 
     htmlCode += `</li>`;
+
    
     return htmlCode;
 };
@@ -179,7 +180,7 @@ function paintFavorites () {
   }
 
   if (favorites.length > 0) {
-    htmlCode += `<button class="removeAll_btn js__removeAllFavorites"">X</button>`;
+    htmlCode += `<button class="removeAll_btn js__removeAllFavorites"">Eliminar todos</button>`;
   }
 
   favoritesUl.innerHTML = htmlCode;
