@@ -10,20 +10,14 @@ const characterInput = document.querySelector('.js__characters-input');
 
 
 // variables
-
-
 let characters = [];
 let favorites = [];
-
-
 
 const handleClickCard = (ev) => {
 
   /*ev.currentTarget.classList.toggle('favorite');*/
   const clickedCardId = ev.currentTarget.dataset.id;
   console.log(clickedCardId);
-
-  
   const clickedCardObj = characters.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
   const clickedFavoriteObj =  favorites.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString())
   console.log('clickenadi', clickedFavoriteObj);
@@ -90,21 +84,19 @@ const handleClickRemoveAll = (ev) => {
   removedElements.forEach(element => {
     element.classList.remove('favorite');
   })
-
-  /*for ( const eachFavorites of characters ){
-    eachFavorites.classList.remove('favorites');
-  }*/
-  localStorage.setItem('favs', JSON.stringify(favorites));
- 
   //Actualizo localStrorage, para que no aparezca la lista de favoritos nuevamente al recargar la pagina
- 
+  
+  localStorage.setItem('favs', JSON.stringify(favorites));
+  
   paintFavorites ();
 }
 
 
+// para pintar personajes que coinciden con criterio de busqueda de la usuaria 
 
 function handleClickSearch (ev) {
   ev. preventDefault();
+
   
   const searchedCharacter = characterInput.value;
   fetch(`https://api.disneyapi.dev/character?pageSize=50&name=${encodeURIComponent(searchedCharacter)}`)
@@ -112,20 +104,18 @@ function handleClickSearch (ev) {
    .then(dataFromOtherFetch => {
     characters = dataFromOtherFetch.data;
     paintcharacters();
-    
-    
-    /*if (characters) {
-      cardElement.classList.add('favorite');
-    }*/
+      
+
+    // quitar la clase favorites para cada elemento de la lista
+ 
+  
     paintcharacters();
 
   })
 
  }
 
-
-// Get data 
-
+// Get data. Pintar personajes en mi pag
 
 const getApiData = () => {
     fetch('//api.disneyapi.dev/character?pageSize=50')
@@ -213,21 +203,12 @@ loadfavorites();
 getApiData();
 
 
-
 // funciones
-
 
 // Funciones de Eventos (Handler)
 
-
-
-
-
-
-
 // Eventos
 searchButton.addEventListener('click', handleClickSearch);
-
 
 // Codigo cuando carga la pagina
 
