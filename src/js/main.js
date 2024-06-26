@@ -79,23 +79,29 @@ const handleClickCard = (ev) => {
   }
 }
 
- /*const handleClickRemove = ev => {
+// quitar toda la lista de favoritos
+
+const handleClickRemoveAll = (ev) => {
   ev.stopPropagation();
-  const clickedCardId = ev.currentTarget.dataset.id;
-  let clickedCardObj = characters.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
-   if (clickedCardObj !== -1) {
-    favorites.splice(clickedCardObj,1);
-    ev.currentTarget.classList.remove('favorite');
-     localStorage.setItem('favs', JSON.stringify(favorites));
+  favorites = [];
+  const removedElements = document.querySelectorAll(`.js__charactercard`);
+  // quitar la clase favorites para cada elemento de la lista
 
-    paintFavorites();
-   }
+  removedElements.forEach(element => {
+    element.classList.remove('favorite');
+  })
 
-  
-  console.log(clickedCardId);
-  
-  console.log ('me han clickeado', ev.currentTarget.dataset.id);
-} */
+  /*for ( const eachFavorites of characters ){
+    eachFavorites.classList.remove('favorites');
+  }*/
+  localStorage.setItem('favs', JSON.stringify(favorites));
+ 
+  //Actualizo localStrorage, para que no aparezca la lista de favoritos nuevamente al recargar la pagina
+ 
+  paintFavorites ();
+}
+
+
 
 function handleClickSearch (ev) {
   ev. preventDefault();
@@ -107,9 +113,10 @@ function handleClickSearch (ev) {
     characters = dataFromOtherFetch.data;
     paintcharacters();
     
-    if (characters) {
+    
+    /*if (characters) {
       cardElement.classList.add('favorite');
-    }
+    }*/
     paintcharacters();
 
   })
@@ -177,18 +184,28 @@ const paintcharacters = () => {
 
 function paintFavorites () {
   let htmlCode = '';
-
   for (const character of favorites) {
     htmlCode += getCharactersHtmlCode(character, true);
+  }
+
+  if (favorites.length > 0) {
+    htmlCode += `<button class="removeAll_btn js__removeAllFavorites"">X</button>`;
   }
 
   favoritesUl.innerHTML = htmlCode;
 
   const removeButton = document.querySelectorAll('.js__removeFavorite'); 
+  const removeButtonAll = document.querySelector('.js__removeAllFavorites');
+  console.log('remove button', removeButtonAll);  
+
   for (const eachButoon of removeButton) {
     console.log ('hice click', eachButoon);
-    eachButoon.addEventListener('click', handleClickRemove);
+  eachButoon.addEventListener('click', handleClickRemove);
+  }    
+  if (removeButtonAll) {
+    removeButtonAll.addEventListener('click', handleClickRemoveAll);
   }
+
 }
 // Start web
 
