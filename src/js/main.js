@@ -151,15 +151,13 @@ const loadfavorites = () => {
 const getCharactersHtmlCode = (character, isFavorite = false) => {
     
    let imageUrl = character.imageUrl;
-   
- 
 
 if (!imageUrl) {
     imageUrl = `https://via.placeholder.com/210x295/ffffff/555555/?text=Disney`;  
   } 
    
-  const isFavs = favorites.find(eachCardObj => eachCardObj._id.toString() === character._id.toString());
-  const favoriteClass = isFavorite ? 'favorite' : '';
+  /*const isFavs = favorites.find(eachCardObj => eachCardObj._id.toString() === character._id.toString());
+  const favoriteClass = isFavorite ? 'favorite' : '';*/
   
 
    let htmlCode = '';
@@ -169,10 +167,9 @@ if (!imageUrl) {
    htmlCode += `<h3 class= "card__name">${character.name} </h3>`;
     if (isFavorite) {
       htmlCode += `<button class="remove_btn js__removeFavorite" data-id="${character._id}">X</button>`;
-  } 
-    htmlCode += `</li>`;
+     } 
 
-  
+    htmlCode += `</li>`;
 
     return htmlCode;
 
