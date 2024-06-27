@@ -169,6 +169,7 @@ header {
     height: 150px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    cursor: pointer;
 }
 
 .card__name {
@@ -185,14 +186,17 @@ header {
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
-  margin: 10px;
-  margin-left: 150px;
+  margin: 1px;
+  margin-left: 170px;
 }
 
-.card.favorite {
+.favorite {
     background-color: lightblue;
     color: blue;
-    
+  }
+
+.favorite .card__name {
+    color: blue;  
 }
 
 .removeAll_btn {
