@@ -13,16 +13,21 @@ const characterInput = document.querySelector('.js__characters-input');
 let characters = [];
 let favorites = [];
 
+
+// al hacer click en la tarjeta del personaje
 const handleClickCard = (ev) => {
+ /*ev.currentTarget.classList.toggle('favorite');*/ // para ver si lo uso depués
 
-  /*ev.currentTarget.classList.toggle('favorite');*/
+ // obtener ID de personaje clickeado
   const clickedCardId = ev.currentTarget.dataset.id;
-  console.log(clickedCardId);
+  /*console.log(clickedCardId);*/
+  // buscamos en Array de characters el personaje correspondiente.
   const clickedCardObj = characters.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
+  // chequeamos si esta en favoritos. 
   const clickedFavoriteObj =  favorites.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString())
-  console.log('clickeando', clickedFavoriteObj);
+  /*console.log('clickeando', clickedFavoriteObj);*/
   
-
+  // si el personaje no esta en fav, se agrega a la lista, y actualizamos tmb el localStorage, y pintamos en pag
   if (clickedFavoriteObj === undefined) {
     favorites.push(clickedCardObj);
     ev.currentTarget.classList.add('favorite');
@@ -32,6 +37,7 @@ const handleClickCard = (ev) => {
   paintFavorites ();
 
   }
+  // si ya esta en favs, lo elmminamos, tambien actualizamos localStorage, y pintamos. 
   else {
     // Sacar de favoritos
     
@@ -50,10 +56,10 @@ const handleClickCard = (ev) => {
  const handleClickRemove = (ev) => {
   ev.stopPropagation();
 
-  const clickedCardId = ev.currentTarget.dataset.id;
+  const clickedCardId = ev.currentTarget.dataset.id; // ver si lo podemos traer como parametro
   console.log('Clicked remove ID:', clickedCardId);
 
-  // Encuentra el índice del objeto en la lista de favoritos
+  // Encuentramo el índice del objeto en la lista de favoritos
   const clickedFavoriteIndex = favorites.findIndex(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
 
   if (clickedFavoriteIndex !== -1) {
@@ -67,7 +73,7 @@ const handleClickCard = (ev) => {
       cardElement.classList.remove('favorite');
     }
 
-    // Actualiza el localStorage y la UI
+    // Actualiza el localStorage y pinta personajes
     localStorage.setItem('favs', JSON.stringify(favorites));
     paintFavorites();
   }
@@ -77,14 +83,15 @@ const handleClickCard = (ev) => {
 
 const handleClickRemoveAll = (ev) => {
   ev.stopPropagation();
-  favorites = [];
+  favorites = []; // se limpia todo el arrar de favoritos
   const removedElements = document.querySelectorAll(`.js__charactercard`);
-  // quitar la clase favorites para cada elemento de la lista
+  
+  // quitar la clase favorites para cada uno de lo elementos de la lista
 
   removedElements.forEach(element => {
     element.classList.remove('favorite');
   })
-  //Actualizo localStrorage, para que no aparezca la lista de favoritos nuevamente al recargar la pagina
+  //Actualizo localStrorage, para que no aparezca la lista de favoritos nuevamente al recargar la pagina y se pintan personajaes de nuevo
   
   localStorage.setItem('favs', JSON.stringify(favorites));
   
@@ -94,14 +101,16 @@ const handleClickRemoveAll = (ev) => {
 
 // para pintar personajes que coinciden con criterio de busqueda de la usuaria 
 
+
+// buscar personajes
 function handleClickSearch (ev) {
   ev. preventDefault();
-
   
+  // buscamos en la API, usando el input de la busqueda, y pintamos resultado de personajes.  
   const searchedCharacter = characterInput.value;
   fetch(`https://api.disneyapi.dev/character?pageSize=50&name=${encodeURIComponent(searchedCharacter)}`)
    .then(response => response.json())
-   .then(dataFromOtherFetch => {
+   .then(dataFromOtherFetch => {              // objeto json obtenido para guardar datos en variable
     characters = dataFromOtherFetch.data;
     paintcharacters();
       
@@ -115,7 +124,7 @@ function handleClickSearch (ev) {
 
  }
 
-// Get data. Pintar personajes en mi pag
+// Get data. Pintar personajes en mi pag, al cargarla
 
 const getApiData = () => {
     fetch('//api.disneyapi.dev/character?pageSize=50')
@@ -127,6 +136,8 @@ const getApiData = () => {
     });
 };
 
+// cargamos favoritos para pintar, desde el lovalStorage
+
 const loadfavorites = () => {
   const favsFromLs = JSON.parse(localStorage.getItem('favs'));
   if(favsFromLs !== null) {
@@ -135,7 +146,7 @@ const loadfavorites = () => {
   } 
   };
 
-// Paint Characters
+// Generamos html para un personaje + btn remove para favoritos
 
 const getCharactersHtmlCode = (character, isFavorite = false) => {
     
@@ -168,6 +179,8 @@ if (!imageUrl) {
 
 };
 
+// pintamos los personajes en la pagina, que se obtuvieron de la api. Ponemos el evento click sobre cada carta. 
+
 const paintcharacters = () => {
   let charactersCode = '';
   
@@ -181,6 +194,9 @@ const paintcharacters = () => {
     eachCardArticle.addEventListener('click', handleClickCard);
   }
 };
+
+
+// pnyamos favs, agregamos btn x para eliminar fav y btn elminar todos los favs
 
 function paintFavorites () {
   let htmlCode = '';
@@ -212,17 +228,10 @@ function paintFavorites () {
 loadfavorites(); 
 getApiData();
 
-
-// funciones
-
-// Funciones de Eventos (Handler)
-
 // Eventos
 searchButton.addEventListener('click', handleClickSearch);
 
-// Codigo cuando carga la pagina
 
-/*charactersUl.innerHTML = '';*/
 
 
 
