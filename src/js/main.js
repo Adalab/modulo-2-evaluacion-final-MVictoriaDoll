@@ -24,7 +24,7 @@ const handleClickCard = (ev) => {
   // buscamos en Array de characters el personaje correspondiente.
   const clickedCardObj = characters.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
   // chequeamos si esta en favoritos. 
-  const clickedFavoriteObj =  favorites.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString())
+  const clickedFavoriteObj =  favorites.find(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
   /*console.log('clickeando', clickedFavoriteObj);*/
   
   // si el personaje no esta en fav, se agrega a la lista, y actualizamos tmb el localStorage, y pintamos en pag
@@ -32,9 +32,9 @@ const handleClickCard = (ev) => {
     favorites.push(clickedCardObj);
     ev.currentTarget.classList.add('favorite');
 
-    localStorage.setItem('favs', JSON.stringify(favorites) );
+    localStorage.setItem('favs', JSON.stringify(favorites));
 
-  paintFavorites ();
+    paintFavorites ();
 
   }
   // si ya esta en favs, lo elmminamos, tambien actualizamos localStorage, y pintamos. 
@@ -122,7 +122,7 @@ function handleClickSearch (ev) {
 
   })
 
- }
+ };
 
 // Get data. Pintar personajes en mi pag, al cargarla
 
@@ -149,10 +149,14 @@ const loadfavorites = () => {
 // Generamos html para un personaje + btn remove para favoritos
 
 const getCharactersHtmlCode = (character, isFavorite = false) => {
+  if (!character) {
+    console.error('Character is null');
+    return '';
+  }
     
    let imageUrl = character.imageUrl;
 
-if (!imageUrl) {
+ if (!imageUrl) {
     imageUrl = `https://via.placeholder.com/210x295/ffffff/555555/?text=Disney`;  
   } 
    
@@ -197,6 +201,7 @@ const paintcharacters = () => {
 
 function paintFavorites () {
   let htmlCode = '';
+  
   for (const character of favorites) {
     htmlCode += getCharactersHtmlCode(character, true);
   }
@@ -227,7 +232,6 @@ getApiData();
 
 // Eventos
 searchButton.addEventListener('click', handleClickSearch);
-
 
 
 
