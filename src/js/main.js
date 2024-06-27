@@ -1,7 +1,6 @@
 'use strict';
 // Query Selector
 
-/*const charactersUl = document.querySelector('.js__character');*/
 
 const charactersElements = document.querySelector('.js__listcharacters');
 const favoritesUl = document.querySelector('.js__favoritecharacters');
@@ -44,11 +43,9 @@ const handleClickCard = (ev) => {
     favorites.splice(clickedFavoriteObj,1);
     ev.currentTarget.classList.remove('favorite');
     
-
     localStorage.setItem('favs', JSON.stringify(favorites) );
     paintFavorites ();
   } 
-  
   
  }
 
@@ -59,7 +56,7 @@ const handleClickCard = (ev) => {
   const clickedCardId = ev.currentTarget.dataset.id; // ver si lo podemos traer como parametro
   console.log('Clicked remove ID:', clickedCardId);
 
-  // Encuentramo el índice del objeto en la lista de favoritos
+  // Encuentra el índice del objeto en la lista de favoritos
   const clickedFavoriteIndex = favorites.findIndex(eachCardObj => eachCardObj._id.toString() === clickedCardId.toString());
 
   if (clickedFavoriteIndex !== -1) {
@@ -94,12 +91,8 @@ const handleClickRemoveAll = (ev) => {
   //Actualizo localStrorage, para que no aparezca la lista de favoritos nuevamente al recargar la pagina y se pintan personajaes de nuevo
   
   localStorage.setItem('favs', JSON.stringify(favorites));
-  
   paintFavorites ();
 }
-
-
-// para pintar personajes que coinciden con criterio de busqueda de la usuaria 
 
 
 // buscar personajes
@@ -112,12 +105,6 @@ function handleClickSearch (ev) {
    .then(response => response.json())
    .then(dataFromOtherFetch => {              // objeto json obtenido para guardar datos en variable
     characters = dataFromOtherFetch.data;
-    paintcharacters();
-      
-
-    // quitar la clase favorites para cada elemento de la lista
- 
-  
     paintcharacters();
 
   })
@@ -149,10 +136,6 @@ const loadfavorites = () => {
 // Generamos html para un personaje + btn remove para favoritos
 
 const getCharactersHtmlCode = (character, isFavorite = false) => {
-  if (!character) {
-    console.error('Character is null');
-    return '';
-  }
     
    let imageUrl = character.imageUrl;
 
@@ -160,10 +143,6 @@ const getCharactersHtmlCode = (character, isFavorite = false) => {
     imageUrl = `https://via.placeholder.com/210x295/ffffff/555555/?text=Disney`;  
   } 
    
-  /*const isFavs = favorites.find(eachCardObj => eachCardObj._id.toString() === character._id.toString());
-  const favoriteClass = isFavorite ? 'favorite' : '';*/
-  
-
    let htmlCode = '';
 
    htmlCode += `<li class="js__charactercard card" data-id="${character._id}">`;
@@ -197,7 +176,7 @@ const paintcharacters = () => {
 };
 
 
-// pnyamos favs, agregamos btn x para eliminar fav y btn elminar todos los favs
+// pintamos favs, agregamos btn x para eliminar fav y btn elminar todos los favs
 
 function paintFavorites () {
   let htmlCode = '';
